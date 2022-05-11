@@ -1,0 +1,332 @@
+<form [formGroup]="detailForm">
+  <div class="detail">
+    <div class="row">
+      <div class="col-3">
+        <small><b>Detail</b></small>
+      </div>
+      <div class="col-5">
+        <div class="name">
+          <label class="mb-1 mt-2 required">Name</label>
+          <select
+            [(ngModel)]="name"
+            formControlName="name"
+            id="name"
+            class="form-select form-select-sm"
+            aria-label=".form-select-sm example"
+          >
+            <option value="" disabled selected>Name</option>
+            <option
+              required
+              [value]="item.employee_name"
+              *ngFor="let item of employeesData"
+            >
+              {{ item.employee_name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3"></div>
+        <div class="col-4">
+          <div class="distribution">
+            <Label class="mb-1 mt-3 required">Distribution Center</Label>
+            <select
+              [(ngModel)]="dc"
+              style="width: 300px"
+              formControlName="dc"
+              class="form-select form-select-sm"
+              aria-label=".form-select-sm example"
+            >
+              <option value="" disabled selected>Distribution Center</option>
+              <option selected [hidden]="name">No data available</option>
+              <option [hidden]="!name" value="DC Tangerang">
+                DC Tangerang
+              </option>
+              <option [hidden]="!name" value="DC Cikarang">DC Cikarang</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3"></div>
+        <div class="col-4">
+          <div class="payment-type">
+            <Label class="mb-1 mt-3 required">Payment Type</Label>
+            <select
+              [(ngModel)]="paymentType"
+              required
+              style="width: 300px"
+              formControlName="paymentType"
+              class="form-select form-select-sm"
+              aria-label=".form-select-sm example"
+            >
+              <option value="" disabled selected>Payment Type</option>
+              <option
+                [hidden]="!dc"
+                [value]="item.name"
+                *ngFor="let item of paymentTypes"
+              >
+                {{ item.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="expired">
+            <p class="mb-1 mt-3 required">Expired Date</p>
+            <input
+              [(ngModel)]="expired"
+              placeholder="Expired Date"
+              required
+              formControlName="expired"
+              matInput
+              [matDatepicker]="picker"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+              [hidden]="!paymentType"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3"></div>
+        <div class="col-4">
+          <div class="notes mt-3">
+            <label for="exampleFormControlTextarea1" class="form-label"
+              >Notes</label
+            >
+            <textarea
+              formControlName="notes"
+              style="width: 400px"
+              class="form-control"
+              id="exampleFormControlTextarea1"
+              rows="3"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <!-- form product 1 -->
+  <div formGroupName="products" class="products">
+    <div class="row">
+      <div class="col-3">
+        <small><b>Product</b></small>
+      </div>
+      <div class="col-5">
+        <div class="product">
+          <Label class="mb-1 mt-2 required">Product</Label>
+          <select
+            [(ngModel)]="product"
+            formControlName="product"
+            class="form-select form-select-sm"
+            aria-label=".form-select-sm example"
+          >
+            <option value="" disabled selected>Product Name</option>
+            <option [value]="item.name" *ngFor="let item of productList">
+              {{ item.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="unit">
+          <Label class="mb-1 mt-2 required">Unit</Label>
+          <select
+            [(ngModel)]="unit"
+            style="width: 100px"
+            formControlName="unit"
+            class="form-select form-select-sm"
+            aria-label=".form-select-sm example"
+          >
+            <option value="" disabled selected>Unit</option>
+            <option
+              [hidden]="!product"
+              [value]="item.name"
+              *ngFor="let item of this.units"
+            >
+              {{ item.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3"></div>
+        <div class="col-2">
+          <div class="quantity">
+            <Label class="mb-1 mt-3 required">Quantity</Label><br />
+            <input
+              [(ngModel)]="quantity"
+              formControlName="quantity"
+              type="number"
+              style="width: 150px"
+            />
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="price">
+            <Label class="mb-1 mt-3 required">Price</Label><br />
+            <input
+              style="width: 150px"
+              [(ngModel)]="price"
+              formControlName="price"
+              type="number"
+            />
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="total-price">
+            <Label class="mb-1 mt-3 required">Total Price</Label><br />
+            <input
+              type="number"
+              formControlName="totalPrice"
+              style="width: 290px"
+            />
+            <hr />
+            <div class="row">
+              <div class="col">
+                <p class="text">Total Nett Price</p>
+              </div>
+              <div class="col total">
+                <p class="text">0</p>
+              </div>
+            </div>
+          </div>
+          <br />
+          <br />
+          <br />
+        </div>
+      </div>
+    </div>
+    <!-- coba 2 bad practice-->
+    <div class="row" *ngIf="isShown">
+      <div class="col-3">
+        <!-- <small><b>Product</b></small> -->
+      </div>
+      <div class="col-5">
+        <div class="product">
+          <Label class="mb-1 mt-2 required">Product</Label>
+          <select
+            [(ngModel)]="product"
+            formControlName="product"
+            class="form-select form-select-sm"
+            aria-label=".form-select-sm example"
+          >
+            <option value="" disabled selected>Product Name</option>
+            <option [value]="item.name" *ngFor="let item of productList">
+              {{ item.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="unit">
+          <Label class="mb-1 mt-2 required">Unit</Label>
+          <select
+            [(ngModel)]="unit"
+            style="width: 100px"
+            formControlName="unit"
+            class="form-select form-select-sm"
+            aria-label=".form-select-sm example"
+          >
+            <option value="" disabled selected>Unit</option>
+            <option
+              [hidden]="!product"
+              [value]="item.name"
+              *ngFor="let item of this.units"
+            >
+              {{ item.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3"></div>
+        <div class="col-2">
+          <div class="quantity">
+            <Label class="mb-1 mt-3 required">Quantity</Label><br />
+            <input
+              [(ngModel)]="quantity"
+              formControlName="quantity"
+              type="number"
+              style="width: 150px"
+            />
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="price">
+            <Label class="mb-1 mt-3 required">Price</Label><br />
+            <input
+              style="width: 150px"
+              [(ngModel)]="price"
+              formControlName="price"
+              type="number"
+            />
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="total-price">
+            <Label class="mb-1 mt-3 required">Total Price</Label><br />
+            <input
+              type="number"
+              formControlName="totalPrice"
+              style="width: 290px"
+            />
+            <hr />
+            <div class="row">
+              <div class="col">
+                <p class="text">Total Nett Price</p>
+              </div>
+              <div class="col total">
+                <p class="text">0</p>
+              </div>
+            </div>
+          </div>
+          <br />
+          <br />
+          <br />
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- button -->
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-2">
+      <div class="add-item">
+        <input
+          type="submit"
+          value="New Item +"
+          class="btn-warning"
+          (click)="toggleShow()"
+        />
+      </div>
+    </div>
+    <div class="col-2"></div>
+    <div class="col-4">
+      <div class="row subtotal">
+        <div class="col text-total">
+          <p class="text">Total</p>
+        </div>
+        <div class="col total">
+          <p class="text">0</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="button">
+    <input type="submit" value="Cancel" />
+    <input
+      type="submit"
+      value="Confirm"
+      class="btn-success ms-3"
+      (click)="onSubmit()"
+      [disabled]="!detailForm.valid"
+    />
+  </div>
+</form>

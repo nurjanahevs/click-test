@@ -1,0 +1,29 @@
+.required:after {
+  content: " *";
+  color: red;
+}
+
+.button {
+  text-align: right;
+}
+
+.text {
+  font-weight: bold;
+}
+
+.total {
+  text-align: right;
+}
+
+.subtotal {
+  margin-left: -9%;
+  margin-right: 3%;
+}
+
+.add-item {
+  margin-top: -30%;
+}
+
+.product {
+  margin-top: -20px;
+}
