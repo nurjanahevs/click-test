@@ -319,4 +319,8 @@ export class HomeComponent implements OnInit {
   onSubmit() {
     console.log(this.detailForm.value);
   }
+
+  reloadCurrentPage() {
+    window.location.reload();
+  }
 }
